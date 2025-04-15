@@ -1,0 +1,20 @@
+{
+  "name": "parquet-mvp",
+  "private": true,
+  "scripts": {
+    "start": "bun index.html",
+    "build": "del-cli -f dist && bun build index.html --minify --outdir=dist"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "del-cli": "^6.0.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.787.0",
+    "hyparquet": "^1.12.1",
+    "hyparquet-compressors": "^1.1.1"
+  }
+}
