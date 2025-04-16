@@ -1,9 +1,43 @@
 <!doctype html>
 <html>
 <head>
-  <script src="src/app.ts" type="module"></script>
+  <script src="src/app.js"></script>
 </head>
 <body>
-See the console for output
+<div id="app">
+  <fieldset style="display: flex; gap: 10px">
+    <legend>Data Selection</legend>
+
+    <select v-model="selectedStates" multiple style="height: 400px; min-width: 200px">
+      <option disabled value="">Please select states</option>
+      <option v-for="([fips, state]) in sortedStates" :key="fips" :value="fips">{{ state }}</option>
+    </select>
+
+    <select v-model="selectedCounties" multiple style="height: 400px; min-width: 200px">
+      <option disabled value="">Please select counties</option>
+      <template v-for="stateFips in selectedStates" :key="stateFips">
+        <option disabled style="align-items: center; background-color: #999; color: white; display: flex; height: 32px; justify-content: center">{{ stateLookup[stateFips] }}</option>
+        <option v-for="(county, id) in countyLookup[stateFips]" :key="id" :value="id">{{ county }}</option>
+      </template>
+    </select>
+
+    <select v-model="selectedColumns" multiple style="height: 400px">
+      <option disabled value="">Please select columns</option>
+      <option v-for="column in columns" :key="column" :value="column">{{ column }}</option>
+    </select>
+
+    <select v-model="selectedUpgrades" multiple style="height: 400px; min-width: 200px">
+      <option disabled value="">Please select upgrades</option>
+      <option v-for="upgrade in upgrades" :key="upgrade" :value="upgrade">{{ upgrade }}</option>
+    </select>
+  </fieldset>
+
+  <button
+    :disabled="isDownloading || !selectedStates.length || !selectedCounties.length || !selectedColumns.length || !selectedUpgrades.length"
+    @click="download"
+  >
+    {{ isDownloading ? `${completed} / ${totalUrls}` : 'Download' }}
+  </button>
+</div>
 </body>
 </html>
