@@ -5,8 +5,8 @@ import { getTimestamp } from './utils'
 const bucket = 'bstkanalysis.bps-workflow'
 const s3Client = new S3Client({
   region: 'us-west-2',
-  credentials: {accessKeyId: '', secretAccessKey: ''},
-  signer: {sign: async req => req},
+  credentials: { accessKeyId: '', secretAccessKey: '' },
+  signer: { sign: async (req) => req },
 })
 
 export async function uploadS3File(csv: string) {

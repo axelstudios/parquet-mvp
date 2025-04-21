@@ -1,4 +1,4 @@
-export const columns: readonly string[] = [
+export const columns: string[] = [
   'bldg_id',
   'upgrade',
   'in.upgrade_name',
@@ -26,4 +26,4 @@ export const columns: readonly string[] = [
   'calc.weighted.sqft..ft2',
 ]
 
-export const upgrades: readonly string[] = Array.from({length: 39}, (_, i) => `upgrade${`${i + 1}`.padStart(2, '0')}`)
+export const upgrades: readonly string[] = Array.from({ length: 39 }, (_, i) => `upgrade${`${i + 1}`.padStart(2, '0')}`)

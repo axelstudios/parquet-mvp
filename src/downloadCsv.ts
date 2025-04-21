@@ -1,9 +1,9 @@
 import { unparse } from 'papaparse'
 
-export const convertToCsv = (data: Record<string, any>[], fields: string[]) => unparse({fields, data})
+export const convertToCsv = (data: Record<string, any>[], fields: string[]) => unparse({ fields, data })
 
 export const downloadCsv = (csv: string, name: string) => {
-  const blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'})
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
 
   const url = URL.createObjectURL(blob)
 

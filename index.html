@@ -1,60 +1,27 @@
-<!doctype html>
-<html>
-<head>
-  <script src="src/app.js"></script>
-</head>
-<body>
-<div id="app">
-  <fieldset style="display: flex; gap: 10px">
+<div style="display: flex; flex-direction: column; align-items: start; gap: 10px">
+  <fieldset style="border-radius: 5px; display: inline-flex; gap: 10px">
     <legend>User Info</legend>
-
     <div style="display: flex; flex-direction: column; gap: 10px">
       <div style="display: flex; gap: 10px">
-        <input v-model="firstName" type="text" placeholder="First Name" autocomplete="given-name" style="flex: 1" required>
-        <input v-model="lastName" type="text" placeholder="Last Name" autocomplete="family-name" style="flex: 1" required>
+        <input id="firstName" type="text" placeholder="First Name" autocomplete="given-name" style="flex: 1" required />
+        <input id="lastName" type="text" placeholder="Last Name" autocomplete="family-name" style="flex: 1" required />
       </div>
-      <input v-model="email" type="email" placeholder="Email" autocomplete="email" required>
-      <textarea v-model="useCase" placeholder="Use Case" style="font-family: sans-serif; resize: none" required></textarea>
-      <select v-model="selectedPersona" required>
-        <option disabled value="">Persona</option>
-        <option v-for="persona in personas" :key="persona" :value="persona">{{ persona }}</option>
-      </select>
+      <input id="email" type="email" placeholder="Email" autocomplete="email" required />
+      <textarea id="useCase" placeholder="Use Case" style="font-family: sans-serif; resize: none" required></textarea>
+      <select id="personaSelect" required></select>
     </div>
   </fieldset>
 
-  <fieldset style="display: flex; gap: 10px">
+  <fieldset style="border-radius: 5px; display: inline-flex">
     <legend>Data Selection</legend>
-
-    <select v-model="selectedStates" multiple style="height: 400px; min-width: 150px">
-      <option disabled value="">Please select states</option>
-      <option v-for="([fips, state]) in sortedStates" :key="fips" :value="fips">{{ state }}</option>
-    </select>
-
-    <select v-model="selectedCounties" multiple style="height: 400px; min-width: 150px">
-      <option disabled value="">Please select counties</option>
-      <template v-for="stateFips in selectedStates" :key="stateFips">
-        <option disabled style="align-items: center; background-color: #999; color: white; display: flex; height: 32px; justify-content: center">{{ stateLookup[stateFips] }}</option>
-        <option v-for="(county, id) in countyLookup[stateFips]" :key="id" :value="id">{{ county }}</option>
-      </template>
-    </select>
-
-    <select v-model="selectedColumns" multiple style="height: 400px">
-      <option disabled value="">Please select columns</option>
-      <option v-for="column in columns" :key="column" :value="column">{{ column }}</option>
-    </select>
-
-    <select v-model="selectedUpgrades" multiple style="height: 400px; min-width: 150px">
-      <option disabled value="">Please select upgrades</option>
-      <option v-for="upgrade in upgrades" :key="upgrade" :value="upgrade">{{ upgrade }}</option>
-    </select>
+    <div style="display: flex; gap: 10px; height: 400px">
+      <select id="statesSelect" multiple="multiple"></select>
+      <select id="countiesSelect" multiple="multiple"></select>
+      <select id="columnsSelect" multiple="multiple"></select>
+      <select id="upgradesSelect" multiple="multiple"></select>
+    </div>
   </fieldset>
-
-  <button
-    :disabled="downloadDisabled"
-    @click="download"
-  >
-    {{ isDownloading ? `${completed} / ${totalUrls}` : 'Download' }}
-  </button>
+  <button id="downloadBtn" style="padding: 4px 10px">Download</button>
 </div>
-</body>
-</html>
+
+<script src="src/app.ts"></script>

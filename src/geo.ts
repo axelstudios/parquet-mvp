@@ -1,4 +1,4 @@
-export const stateLookup = {
+export const stateLookup: Record<string, string> = {
   '02': 'AK',
   '01': 'AL',
   '05': 'AR',
@@ -51,7 +51,7 @@ export const stateLookup = {
   '56': 'WY',
 }
 
-export const countyLookup = {
+export const countyLookup: Record<string, Record<string, string>> = {
   '01': {
     G0100010: 'Autauga',
     G0100030: 'Baldwin',
@@ -944,7 +944,7 @@ export const countyLookup = {
     G1901350: 'Monroe',
     G1901370: 'Montgomery',
     G1901390: 'Muscatine',
-    G1901410: 'O\'Brien',
+    G1901410: "O'Brien",
     G1901430: 'Osceola',
     G1901450: 'Page',
     G1901470: 'Palo Alto',
@@ -1304,10 +1304,10 @@ export const countyLookup = {
     G2400270: 'Howard',
     G2400290: 'Kent',
     G2400310: 'Montgomery',
-    G2400330: 'Prince George\'s',
-    G2400350: 'Queen Anne\'s',
+    G2400330: "Prince George's",
+    G2400350: "Queen Anne's",
     G2400390: 'Somerset',
-    G2400370: 'St. Mary\'s',
+    G2400370: "St. Mary's",
     G2400410: 'Talbot',
     G2400430: 'Washington',
     G2400450: 'Wicomico',
@@ -3300,7 +3300,7 @@ export const countyLookup = {
   },
   '60': {
     G6000100: 'Eastern',
-    G6000200: 'Manu\'a',
+    G6000200: "Manu'a",
     G6000300: 'Rose Island',
     G6000400: 'Swains Island',
     G6000500: 'Western',
