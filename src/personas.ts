@@ -1,0 +1,16 @@
+export const personas: readonly string[] = [
+  'Utility - Retail or Bulk',
+  'Utility Regulator',
+  'City/Local Government',
+  'Consultant',
+  'State Energy Office',
+  'Policy Advocates',
+  'DOE/Federal Agency',
+  'Industry Tool Provider',
+  'Manufacturer/Startup',
+  'NREL Internal Tools',
+  'Lab/Academia',
+  'Business/Investor',
+  'Building Portfolio Owner',
+  'Media',
+]

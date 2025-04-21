@@ -4,13 +4,13 @@ export const columns: readonly string[] = [
   'in.upgrade_name',
   'applicability',
   'weight',
-  'in.cejst_is_disadvantaged',
   'in.comstock_building_type_group',
-  'in.county_name',
   'in.floor_area_category',
-  'in.hvac_category', 'in.interior_lighting_generation',
+  'in.hvac_category',
+  'in.interior_lighting_generation',
+  'in.nhgis_county_gisjoin',
   'in.state_name',
-  'out.site_energy.total.energy_consumption_intensity',
+  'out.site_energy.total.energy_consumption_intensity..kwh_per_ft2',
   'calc.segment',
   'calc.weighted.emissions.total_with_cambium_mid_case_15y..co2e_mmt',
   'calc.weighted.emissions.total_with_egrid..co2e_mmt',
@@ -23,7 +23,7 @@ export const columns: readonly string[] = [
   'calc.weighted.enduse_group.electricity.refrigeration.energy_consumption..tbtu',
   'calc.weighted.enduse_group.electricity.water_systems.energy_consumption..tbtu',
   'calc.weighted.site_energy.total.energy_consumption..tbtu',
-  'calc.weighted.sqft',
+  'calc.weighted.sqft..ft2',
 ]
 
 export const upgrades: readonly string[] = Array.from({length: 39}, (_, i) => `upgrade${`${i + 1}`.padStart(2, '0')}`)

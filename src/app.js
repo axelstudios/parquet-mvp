@@ -4,10 +4,20 @@ import {compressors} from 'hyparquet-compressors'
 import {columns, upgrades} from './columns'
 import {convertToCsv, downloadCsv} from './downloadCsv'
 import {countyLookup, stateLookup} from './geo'
+import {personas} from './personas'
+import {uploadS3File} from './s3'
 
 createApp({
   data() {
     return {
+      // User info
+      firstName: '',
+      lastName: '',
+      email: '',
+      useCase: '',
+      personas,
+      selectedPersona: '',
+
       // Filters
       stateLookup,
       selectedStates: [],
@@ -17,6 +27,7 @@ createApp({
       selectedColumns: columns.slice(0, 5),
       upgrades,
       selectedUpgrades: [],
+
       // Outputs
       urlGroups: [],
       isDownloading: false,
@@ -42,12 +53,19 @@ createApp({
     },
     totalUrls() {
       return this.urlGroups.reduce((total, group) => total + group.length, 0)
+    },
+    downloadDisabled() {
+      return this.isDownloading
+        || !this.firstName.length || !this.lastName.length || !this.email.length || !this.useCase.length || !this.selectedPersona.length
+        || !this.selectedStates.length || !this.selectedCounties.length || !this.selectedColumns.length || !this.selectedUpgrades.length
     }
   },
   methods: {
     async download() {
       this.isDownloading = true
       this.completed = 0
+
+      await this.uploadUserQuery()
 
       const urlGroups = []
       for (const stateFips of this.selectedStates) {
@@ -83,5 +101,27 @@ createApp({
 
       this.isDownloading = false
     },
+    async uploadUserQuery() {
+      const selectedCounties = Object.entries(this.nestedCounties).reduce((acc, [stateFips, countyIds]) => {
+        for (const countyId of countyIds) {
+          acc.push(`${countyLookup[stateFips][countyId]} (${countyId})`)
+        }
+        return acc
+      }, [])
+
+      const data = {
+        'First Name': this.firstName,
+        'Last Name': this.lastName,
+        Email: this.email,
+        'Use Case': this.useCase,
+        Persona: this.selectedPersona,
+        'Selected States': this.selectedStates.map((stateFips) => stateLookup[stateFips]).join(', '),
+        'Selected Counties': selectedCounties.join(', '),
+        'Selected Datasets': this.selectedUpgrades.join(', '),
+        Timestamp: new Date().toISOString(),
+      }
+
+      await uploadS3File(convertToCsv([data], Object.keys(data)))
+    }
   },
 }).mount('#app')
